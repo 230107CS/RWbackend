@@ -23,6 +23,7 @@ The program creates:
  • several writer threads
 
 Each thread:
+
  • waits for a random delay
 
  • attempts to read or write
@@ -46,13 +47,17 @@ We use two mutexes:
 rc_mutex
 
 Protects read_count, the number of active readers.
+
  • Ensures read_count++ and read_count-- happen safely.
 
 wrt_mutex
 
 Controls access to the shared resource:
+
  • Writers lock it for exclusive access.
+
  • The first reader locks it (to block writers).
+
  • The last reader unlocks it (to allow writers).
 
 This creates reader-priority behavior.
@@ -60,7 +65,9 @@ This creates reader-priority behavior.
 
 
 📁 Project Structure
+
 readers_writers.c     # The main program
+
 README.md             # This file
 
 
@@ -92,7 +99,9 @@ You will see output similar to:
 
 
 📚 Requirements
+
  • GCC
+ 
  • POSIX threads (Linux / macOS / WSL / MinGW)
 
 
